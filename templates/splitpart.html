@@ -1,0 +1,14 @@
+<form action="{{url_for('splitpart')}}" method="post" enctype="multipart/form-data" onsubmit="return false" name="splitp">
+    <h1 class="formTitle"> Split A Part Of PDF</h1>
+    <div class="wrapper">
+        <div class="file-upload">
+          <input type="file" accept=".pdf" id="pdfInp" name="pdf"/>
+          <i class="fa fa-arrow-up"></i>
+        </div>
+        Upload Your Files Here
+
+        <a href="#" id="download" download>
+        <button type="submit" class="formButton"  onclick="submitForm(this,'splitp')"> Submit </button>
+      </a>
+      </div>
+</form>

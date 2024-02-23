@@ -1,0 +1,14 @@
+<form action="{{url_for('getText')}}" method="post" enctype="multipart/form-data" onsubmit="return false" name="gettext">
+    <h1 class="formTitle"> Extract Text From PDF</h1>
+    <div class="wrapper">
+        <div class="file-upload">
+          <input type="file" accept=".pdf" name="pdf" id="pdfInp"/>
+          <i class="fa fa-arrow-up"></i>
+        </div>
+        Upload Your Files Here
+        <a href="#" id="download" download></a>
+        <button type="submit" class="formButton"  onclick="submitForm(this,'gettext',1,'responseElement')"> Submit </button>
+      
+      <div id="responseElement"></div>
+      </div>
+</form>

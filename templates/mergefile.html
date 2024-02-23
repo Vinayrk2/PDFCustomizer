@@ -1,0 +1,21 @@
+<div class="formContainer">
+  <form action="{{url_for('mergeFiles')}}" method="post" name="merge"  onsubmit="return false" enctype="multipart/form-data" >
+      <h1 class="formTitle"> Merge PDF</h1>
+      
+      <div class="wrapper">
+        <label>
+          <div class="file-upload">
+            <input type="file" accept=".pdf" name="pdf" id="pdfInp" multiple/>
+            <i class="fa fa-arrow-up"></i>
+          </div>
+        </label>
+          Upload Your Files Here
+          
+          <a href="#" id="download" download>
+            <button type="submit" class="formButton" onclick="submitForm(this,'merge',1)"> Submit </button>
+           
+          </a>
+          
+        </div>
+  </form>
+</div>

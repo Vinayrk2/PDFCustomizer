@@ -1,0 +1,98 @@
+/* 
+  body{
+    
+    background-color:#2590EB;
+    height:100%;
+  }
+   */
+
+
+
+  .wrapper{
+    
+    width:min(100vw,80vh);
+    height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction: column;
+    margin:auto;
+    .file-upload{
+      
+      height:200px;
+      width:200px;
+      border-radius: 100px;
+      position:relative;
+      margin-bottom:20px;
+      
+      display:flex;
+      justify-content:center;
+      align-items: center;  
+  
+      border:1px solid #FFFFFF;
+      overflow:hidden;
+      /* background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%); */
+      background-size: 100% 200%;
+      transition: all 1s;
+      color: #FFFFFF;
+      font-size:100px;
+      z-index:1;
+  
+      input[type='file']{
+  
+        height:100%;
+        width:100%;
+        position:absolute;
+        top:0;
+        left:0;
+        opacity:0;
+        cursor:pointer;
+        
+      }
+  
+      &:hover{
+        background-position: 0 -100%;
+        color:#0f7c7c;
+        border-color:#002020;
+      }
+  
+      .fa-arrow-up{
+        animation-name: arorwMove;
+        animation-duration: 1s;
+        animation-direction: alternate-reverse;
+        animation-iteration-count: infinite;
+        transform: translateX(0);
+      }
+
+    }
+  }
+  @keyframes arorwMove {
+    from{
+      transform:translateY(-5%)
+    }
+    to{
+      transform:translateY(+5%)
+    }
+  }
+
+
+  .formTitle{
+    text-align: left;
+    color:red;
+  }
+
+  .formButton{
+    margin-top:10px;
+    padding:10px;
+    background-color: #FF0000;
+    border: none;
+    outline: none;
+    transform: scaleX(1.5);
+    color:white;
+  }
+
+  .note{
+    padding:2px;
+    color:red;
+    font-family: monospace;
+  }

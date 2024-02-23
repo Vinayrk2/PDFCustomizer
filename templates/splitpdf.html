@@ -1,0 +1,16 @@
+<form action="{{url_for('splitPdf')}}" method="post" enctype="multipart/form-data" onsubmit="return false" name="splitpdf">
+    <h1 class="formTitle">Split PDF into saperate PDFs</h1>
+    <div class="wrapper">
+        <div class="file-upload">
+          <input type="file" accept=".pdf" id="pdfInp" name="pdf"/>
+          <i class="fa fa-arrow-up"></i>
+        </div>
+        Upload Your Files Here
+
+        <label class="note"> Note : Output file will be in zip format.</label>
+
+        <a href="#" id="download" download>
+        <button type="submit" class="formButton"  onclick="submitForm(this,'splitpdf')"> Submit </button>
+      </a>
+      </div>
+</form>

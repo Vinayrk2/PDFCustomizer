@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/719270a6fc.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="../static/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        *{
+            margin: 0; padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+              
+              
+        }
+
+        :root{
+            --icon-width: max(4vw,4vh);
+            --a-b-radius:   0px;
+            --primary : #002020;
+            --action : orangered;
+        }
+
+        nav{
+            z-index:2;
+            height:100vh;
+            position:fixed;
+            top:0;
+            width:var(--icon-width);
+            background-color: #002020;
+            text-wrap: nowrap;
+            overflow: clip;
+            transition-property: width,border;
+            transition-duration: 0.7s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        #pdfOptions,#mainOptions{
+            display: inherit;
+            flex-direction: inherit;
+            margin-bottom:2vh;
+        }
+        
+        #mainOptions>a, #pdfOptions>a{
+            display: block;
+            text-wrap: nowrap;
+            text-decoration: none;
+            height: max(3vh,3vw);
+            box-sizing: border-box;
+            transition: all 0.3s;
+            color:white;
+            box-sizing: border-box;
+        }
+        #mainOptions>a>i, #pdfOptions>a>i{
+            width:var(--icon-width);
+            text-align: center;
+        }
+        
+        #mainOptions>a:hover, #pdfOptions>a:hover{
+            background-color: rgb(0, 0, 0);
+            color: orangered;
+            font-weight: 700;
+            border-top-left-radius: var(--a-b-radius);
+            border-bottom-left-radius: var(--a-b-radius);
+            padding-top:0.5vw;
+            box-sizing: border-box;
+        }
+
+        nav:hover{
+            width: calc(var(--icon-width)*(3.5));
+            box-shadow: 1px 1px 20px -3px rgba(255,0,0,0.75);
+            -webkit-box-shadow: 1px 1px 20px -3px rgba(255,0,0,0.75);
+            -moz-box-shadow: 1px 1px 20px -3px rgba(255,0,0,0.75);
+        }
+        
+        #mainContainer{
+            background-position: left center;
+            background-size: 100% 100%;
+            background-clip: border-box;
+            background-image: url("{{url_for('static',filename='back.gif')}}");
+            width:calc(100vw - var(--icon-width));
+            height:100vh;
+            position:fixed;
+            left: var(--icon-width);
+            top:0;
+            padding:2vw;
+            color:white;
+            
+        }
+
+        .active{
+            background-color: rgb(0, 0, 0);
+            color: orangered;
+            font-weight: 700;
+            padding-top:5%;
+            box-sizing: border-box;
+            overflow-x: visible;
+            width:20vw;
+        }
+        .indicator{
+            color:orangered;
+            font-size: small;
+            text-align: center;
+            margin-bottom:max(1vh,1vw);
+            border-bottom:1px solid orangered;
+        }
+    </style>
+    <title>Home Page</title>
+</head>
+<body>
+
+        <nav>
+            <div id="logo">
+                <i class="fa-regular fa-file-pdf" style="color:white; font-size:xx-large; text-align:center; margin-top:1vw; width:var(--icon-width)"></i>
+            </div>
+
+            <div id="pdfOptions">
+                <span class="indicator" >PDF</span>
+            
+                <a href="/merge"   onclick="loadForm(event,'merge',this)"><i class="fa-solid fa-arrows-to-circle"></i> Merge PDF </a>
+                <a href="/gettext" onclick="loadForm(event,'gettext',this)"><i class="fa-regular fa-file-word"></i> Text From PDF </a>
+                <a href="/splitpdf" id="first" onclick="loadForm(event,'splitpdf',this)"><i class="fa-solid fa-sitemap"></i> Split PDF </a>
+                <a href="/splitpart" onclick="loadForm(event,'splitpart',this)"><i class="fa-solid fa-file-export"></i> PDF Part </a>
+                <a href="/lastpage" onclick="loadForm(event,'lastpage',this)"><i class="fa-solid fa-scroll"></i> PDF Last Page </a>
+            </div>
+
+            <div id="mainOptions">
+                <span class="indicator" >Nav</span>
+                <a href="/"><i class="fa-solid fa-house"></i> Main Page </a>
+                <a href="/abput"><i class="fa-solid fa-file-arrow-down"></i> About </a>
+                <a href="/docs"><i class="fa-solid fa-file"></i> Docs </a>
+                <a href="/contact"><i class="fa-solid fa-user"></i> Contact </a>
+            </div>
+        </nav>
+
+    <div id="mainContainer">
+        <div class="fileuploader"></div>
+</div>
+
+
+
+    <!-- <script src="../static/main.js"></script> -->
+    <script>
+        let prevTarget =  ""
+        function loadForm(e,action,target){
+            e.preventDefault()
+
+            let loadContent = ""
+            switch(action){
+                case 'merge':
+                    loadContent = '{{url_for("mergeFiles")}}'
+                    break
+                
+                case 'lastpage':
+                    loadContent = '{{url_for("getLast")}}'
+                    break
+
+                case 'gettext':
+                    loadContent = '{{url_for("getText")}}'
+                    break
+
+                case 'splitpdf':
+                    loadContent = '{{url_for("splitPdf")}}'
+                    break
+
+                case 'splitpart':
+                    loadContent = '{{url_for("splitpart")}}'
+                    break
+
+                default:
+                    console.error("Following Path is not DEfined")
+            }
+            if (loadContent != ""){
+                fetch(loadContent)
+                .then((res)=>res.text())
+                .then((tags)=>document.querySelector("#mainContainer").innerHTML= tags)    
+                console.log(target)
+                if(!prevTarget){
+                    prevTarget = target
+                }
+                else{
+                    prevTarget.classList.remove("active")
+                    prevTarget = target
+                }
+                target.classList.add("active")
+            }
+        }
+        document.getElementById("first").click();
+
+        const submitForm = (btn,form,amount=1,targetEle=null)=>{
+            console.log(btn)
+            let anchor = document.getElementById('download')
+            const fdata = (document[form].pdf)
+            console.log(document[form].pdf.files.length)
+            if(document[form].pdf.files.length >= amount){
+                fetch(document[form].action, Headers={
+                    method:"POST",
+                    body: new FormData(document[form])
+                }).then((res)=>res.text())
+                .then((data)=>{
+                
+                if(targetEle){
+                    document.getElementById(targetEle).innerHTML = data;
+                    return 
+                }
+                anchor.href = data
+                anchor.innerText = "Download"
+                btn.innerText = "New Request"
+                btn.onclick = ()=>{
+                    window.location.assign(window.location.href)
+                }
+                document.getElementById("pdfInp").setAttribute("disabled","disabled")
+                })
+            } 
+            }
+
+    </script>
+</body>
+</html>
